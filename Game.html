@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Dodge the Defenders</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fugaz+One&display=swap" rel="stylesheet">
+
+  <style>
+    body {
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      font-family: "Fugaz One", sans-serif;
+      min-height: 100vh;
+      background-image: url('https://github.com/lmlingat2029/lmlingat2029.github.io/blob/main/KING.jpg?raw=true');
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      color: white;
+    }
+
+    .intro {
+      margin-bottom: 5px;
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+    }
+
+    .instructions {
+      margin-top: 0;
+      margin-bottom: 15px;
+    }
+
+    .box {
+      display: flex;
+      background-color: rgba(247, 202, 151, 0.9);
+      border: 4px solid #fff;
+      padding: 5px;
+      position: relative;
+      overflow: hidden; /* Keeps defenders from falling outside the box */
+    }
+
+    #lebron {
+      width: 90px;
+      height: 100px;
+      position: absolute;
+      bottom: 20px;
+      transition: 0.2s;
+      left: 190px;
+      background-image: url('https://a.espncdn.com/i/headshots/nba/players/full/1966.png');
+      background-size: contain;
+      background-repeat: no-repeat;
+      z-index: 10; 
+    }
+
+    .lanes {
+      border-right: 2px dashed #091ede;
+      height: 80vh;
+      width: 150px;
+      position: relative;
+    }
+
+    #lane3 {
+      border-right: none;
+    }
+
+    .falling {
+      border-radius: 8px;
+      z-index: 5;
+    }
+
+ 
+    .author-link {
+      margin-top: 20px;
+      color: white;
+      text-decoration: none;
+      background: rgba(0, 0, 0, 0.6);
+      padding: 10px 20px;
+      border-radius: 30px;
+      border: 2px solid white;
+      transition: 0.3s;
+    }
+
+    .author-link:hover {
+      background: white;
+      color: black;
+      transform: scale(1.1);
+    }
+  </style>
+</head>
+
+<body>
+
+  <h1 class="intro">Dodge the Defenders! 🏀</h1>
+  <p class="instructions">Press A to move left, D to move right. Don’t get hit!</p>
+
+  <div class="box">
+    <div class="lanes" id="lane1"></div>
+    <div class="lanes" id="lane2"></div>
+    <div class="lanes" id="lane3"></div>
+    <div id="lebron"></div>
+  </div>
+
+  <a href="aboutauthor.html" class="author-link">About the Authors</a>
+
+  <script>
+    const player = document.getElementById('lebron');
+    const box = document.querySelector('.box');
+
+    const spots = [40, 190, 340];
+    let currentSpot = 1;
+    let score = 0;
+    let gameRunning = true;
+
+    const cheatCode = "lebron";
+    let cheatIndex = 0;
+
+
+    const scoreDisplay = document.createElement('div');
+    scoreDisplay.style.position = 'absolute';
+    scoreDisplay.style.top = '10px';
+    scoreDisplay.style.right = '10px';
+    scoreDisplay.style.color = '#000';
+    scoreDisplay.style.fontSize = '24px';
+    scoreDisplay.innerText = "Score: 0";
+    box.appendChild(scoreDisplay);
+
+
+    const gameOverDisplay = document.createElement('div');
+    gameOverDisplay.style.position = 'absolute';
+    gameOverDisplay.style.top = '40%';
+    gameOverDisplay.style.left = '50%';
+    gameOverDisplay.style.transform = 'translate(-50%, -50%)';
+    gameOverDisplay.style.color = '#d11111';
+    gameOverDisplay.style.fontSize = '48px';
+    gameOverDisplay.style.fontWeight = 'bold';
+    gameOverDisplay.style.display = 'none';
+    gameOverDisplay.style.zIndex = '100';
+    gameOverDisplay.innerText = "GAME OVER!";
+    box.appendChild(gameOverDisplay);
+
+    document.addEventListener('keydown', function(event) {
+      if (!gameRunning) return;
+      const key = event.key.toLowerCase();
+
+    
+      if (key === cheatCode[cheatIndex]) {
+        cheatIndex++;
+        if (cheatIndex === cheatCode.length) {
+          score += 23;
+          scoreDisplay.innerText = "Score: " + score;
+          cheatIndex = 0;
+        }
+      } else {
+        cheatIndex = 0;
+      }
+
+
+      if (key === "a" && currentSpot > 0) {
+        currentSpot--;
+      }
+      if (key === "d" && currentSpot < 2) {
+        currentSpot++;
+      }
+
+      player.style.left = spots[currentSpot] + "px";
+    });
+
+    function spawnObject() {
+      if (!gameRunning) return;
+
+      const obj = document.createElement('div');
+      obj.classList.add('falling');
+      obj.style.width = "60px";
+      obj.style.height = "60px";
+      obj.style.position = "absolute";
+      obj.style.backgroundColor = "yellow";
+      obj.style.top = "-60px";
+
+      const laneIndex = Math.floor(Math.random() * 3);
+      obj.style.left = (spots[laneIndex] + 15) + "px"; 
+
+      box.appendChild(obj);
+
+      const interval = setInterval(() => {
+        if (!gameRunning) {
+          clearInterval(interval);
+          obj.remove();
+          return;
+        }
+
+        let objTop = parseInt(obj.style.top);
+        const boxHeight = box.offsetHeight;
+
+        obj.style.top = objTop + 6 + "px";
+
+       
+        if (objTop + 60 >= boxHeight - 120 && laneIndex === currentSpot) {
+          gameOver();
+          clearInterval(interval);
+        }
+
+       
+        if (objTop >= boxHeight) {
+          score++;
+          scoreDisplay.innerText = "Score: " + score;
+          clearInterval(interval);
+          obj.remove();
+        }
+      }, 20);
+    }
+
+    function gameOver() {
+      gameRunning = false;
+      gameOverDisplay.style.display = 'block';
+      cheatIndex = 0;
+
+      setTimeout(() => {
+        score = 0;
+        scoreDisplay.innerText = "Score: 0";
+        currentSpot = 1;
+        player.style.left = spots[currentSpot] + "px";
+        gameOverDisplay.style.display = 'none';
+        gameRunning = true;
+      }, 1500);
+    }
+
+    setInterval(spawnObject, 900);
+  </script>
+</body>
+</html>
