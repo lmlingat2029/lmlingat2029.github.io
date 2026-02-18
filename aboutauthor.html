@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About the Author</title>
+    <style>
+        body{
+            background-color: black;
+            margin: 0;
+            padding: 0;
+            width:100%;
+        }
+        #menu{
+            background-color: black;
+            padding: 20px 0;
+            color: wheat;
+            font-size: 20px;
+            font-family: "SUSE Mono", system-ui;
+            font-style: normal;
+            font-weight: 700;
+            text-align: center;
+            border-bottom: 3px solid #fcba03;
+            position: relative;
+            overflow: hidden;
+        }   
+        a{
+            text-decoration:none;
+            color:white;
+            font-size: 40px;
+        }
+        .headers{
+            display:flex;
+            justify-content: center; /* Centers the links in the header */
+        }
+        .headers a:hover{
+            color: #fcba03;
+        }
+        .headers a {
+            text-decoration: none;
+            padding: 10px 20px;
+            margin: 0 15px;
+            border: 2px solid transparent;
+            border-radius: 25px;
+            transition: all 0.4s ease;
+        }
+        .sigma{
+            display:grid;
+            gap: 60px;
+            width: 1200px;
+            margin: 40px auto;
+            grid-template-columns: auto auto auto;
+            border-radius:10px;
+        }
+        .kobe, .eli, .gab{
+            display: flex;
+            align-items:center;
+            justify-content:center;
+            border-radius: 15px;
+            overflow:hidden;
+            color: white;
+            font-family: "SUSE Mono", system-ui;
+            text-align: center;
+            padding: 20px;
+            background: linear-gradient(135deg, black, black);
+            height: 520px;
+            transition: all 0.4s ease;
+            position: relative;
+        }
+        .kobe:hover, .eli:hover, .gab:hover{
+            transform: scale(1.05);
+            box-shadow: 0 12px 30px #fcba03;
+            border-width: 5px;
+        }
+        .kobe{
+            grid-column:1/2;
+            grid-row:1/5;
+        }
+
+        .kobe img, .eli img, .gab img{
+            width: 100%;
+            height: 100%;
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+            display: block;
+            padding: 10px;
+            position: relative;
+          z-index: 1;
+}
+
+.kobe{
+            box-shadow: 0 4px 25px #be03fc;
+            border: 3px solid #fcba03;
+        }
+.eli{
+            box-shadow: 0 4px 25px #db1c07;
+            border: 3px solid #fcba03;
+        }
+.gab{
+            box-shadow: 0 4px 25px #001eff;
+            border: 3px solid #fcba03;
+        }
+.kobe img{
+            filter: drop-shadow(0 0 8px #fcba03) drop-shadow(0 0 16px #be03fc);
+}
+
+.eli img{
+            filter: drop-shadow(0 0 8px #fcba03) drop-shadow(0 0 16px #db1c07);
+}
+
+.gab img{
+            filter: drop-shadow(0 0 8px #fcba03) drop-shadow(0 0 16px #001eff);
+}
+        .explain{
+            position: absolute;
+            inset: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            opacity: 0;
+            transition: opacity 0.4s ease;
+            padding: 10px;
+            z-index: 2;
+            background: linear-gradient(135deg, black, black);
+            border-radius: 12px;
+            box-shadow: inset 0 0 20px  #fcba03;
+            font-family:"Cabin Sketch", system-ui;
+        }
+        .explain h2{
+            margin: 0;
+            font-size: 25px;
+            line-height: 1.6;
+            color: #e8e8e8;
+        }
+        .kobe:hover img, .eli:hover img, .gab:hover img{
+            opacity: 0.2; 
+            transform: scale(1.04); 
+        }
+        .kobe:hover .explain, .eli:hover .explain, .gab:hover .explain{ 
+            opacity: 1; 
+        }
+        .gab{
+            grid-column:3/4;
+            grid-row:1/5;
+        }   
+
+
+
+        .epunda-slab{
+            font-family: "Epunda Slab", serif;
+            font-weight: 500;
+            font-style: normal;
+        }
+        .roboto-slab{
+            font-family: "Roboto Slab", serif;
+            font-weight: 600;
+            font-style: normal;
+        }
+        .cabin-sketch-regular{
+            font-family: "Cabin Sketch", sans-serif;
+            font-weight: 400;
+            font-style: normal;
+         }
+        .cabin-sketch-bold{
+            font-family: "Cabin Sketch", sans-serif;
+            font-weight: 700;
+            font-style: normal;
+        }         
+        .suse-mono{
+            font-family: "SUSE Mono", sans-serif;
+            font-weight: 500;
+            font-style: normal;
+        }  
+        .caveat{
+            font-family: "Caveat", cursive;
+            font-weight: 500;
+            font-style: normal;
+        }
+        .chelsea-market-regular {
+            font-family: "Chelsea Market", system-ui;
+            font-weight: 400;
+            font-style: normal;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="menu">    
+        <div class="headers">
+            <p>
+                <a>About the Authors</a>
+            </p>
+            <p>
+                <a href="Game.html">Back to the Game</a>
+            </p>
+        </div>
+    </div>
+
+    <div class="sigma">
+        <div class="kobe">
+            <img src="https://cdn.nba.com/headshots/nba/latest/1040x760/977.png" alt="picture of kobe bryant">
+            <div class="explain">
+                <h2><strong>KOBE</strong><br>This is Kobe Bryant Reyes from 9-Samat, I helped in mechanizing and validating the game.<br>Cheat code is: While playing, type in "lebron" to instantly gain 23 points.</h2>
+            </div>
+        </div>
+        <div class="eli">
+            <img src="https://3.bp.blogspot.com/-ASRBRPJyzRg/WuZCGfiGLeI/AAAAAAAASaQ/l2zqgGILgoAsz4PBaqBu1WlmkBAQt3EpwCLcBGAs/s1600/lebron%2Bjames%2B4.png" alt="picture of lebron james">
+            <div class="explain">
+                <h2><strong>ELI</strong><br>This is Lenin Elijah Lingat from 9-Samat, I designed the game and added the functions.</h2>
+            </div>
+        </div>
+        <div class="gab">
+            <img src="https://a.espncdn.com/combiner/i?img=/i/headshots/nba/players/full/3975.png&w=350&h=254" alt="picture of stephen curry">
+            <div class="explain">
+                <h2><strong>GAB</strong><br>This is Gabriel A. Samson from 9-Samat, I am the Creator of the About Author Page and the Mechanism for Lebron's movement.</h2>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
